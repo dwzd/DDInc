@@ -1,0 +1,67 @@
+﻿
+@model DDInc.Models.Simple
+@Model DDInc.Models.Simple
+@using DDInc.Classes
+@Html.ActionLink("LinkText", "ActionName")<br />
+@Html.ActionLink("LinkText", "ActionName", "ControllerName")<br />
+@Html.ActionLink("LinkText", "ActionName", new { id = 1 })
+<br /><br />
+@Html.RouteLink("LinkText", new { action = "ActionName" })
+@Html.RouteLink("LinkText", new { action = "ActionName", controller = "ControllerName" })
+@Html.RouteLink("LinkText", new { action = "ActionName", id = 1 })
+<br /><br />
+@Html.TextBox("NameId")
+@Html.TextBox("NameId", "Input")
+<br /><br />
+@Html.Hidden("NameId")
+@Html.Hidden("NameId", "Value")
+<br /><br />
+@Html.Password("NameId")
+@Html.Password("NameId", "passworld")
+<br /><br />
+@Html.CheckBox("NameId", true)
+@Html.CheckBox("NameId", false)
+<br /><br />
+@Html.RadioButton("NameId", "Value", true)
+@Html.RadioButton("NameId", "Value", false)
+<br /><br />
+@{
+    SelectListItem item;
+    List<SelectListItem> list = new List<SelectListItem>();
+    for (int i = 1; i < 6; i++)
+    {
+        item = new SelectListItem();
+        item.Text = "theNumber" + i;
+        item.Value = "Value" + i;
+        item.Selected = (i == 1);
+        list.Add(item);
+    }
+}
+@Html.DropDownList("Id", list)
+<br /><br />
+@Html.ListBox("NameId", list)
+<br /><br />
+@Html.TextBox("NameId", "Value", new { @class = "classText", @style = "width:200px" })
+<br /><br />
+@using (Html.BeginForm("actionName", "controllerName", FormMethod.Get))
+{
+    @Html.TextBox("NameId")
+    <input type="submit" value="SubmitButton" />
+}
+
+@{Html.BeginForm("actionName", "controllerName", FormMethod.Post);}
+@Html.TextBox("NameId")
+<input type="submit" value="SubmitButton" />
+@{Html.EndForm();}
+<br /><br />
+@Html.Submit("Submit_Button")
+<br /><br />
+
+<br /><br />
+@Html.TextBoxFor(m => m.Name)
+<br /><br />
+@Html.LabelFor(a => a.Email)
+:@Html.TextBoxFor(a => a.Email)
+<br /><br />
+@Html.DisplayFor(m => m.Email)
+@Html.EditorFor(m => m.Email)

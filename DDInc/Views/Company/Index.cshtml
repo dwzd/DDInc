@@ -1,0 +1,45 @@
+﻿
+@model PagedList.IPagedList<DDInc.Models.Worker>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<br />
+
+@using (Html.BeginForm("Index", "Company", FormMethod.Get))
+
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control", @Style = "display:inline" })
+        <input type="submit" value="Submit" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>@Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.FirstNameSortParm })</th>
+        <th>@Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastNameSortParm })</th>
+        <th>Sex</th>
+        <th>Rating</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sex)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+        </tr>
+    }
+</table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
